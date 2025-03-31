@@ -80,10 +80,21 @@
       <div id="buttonQ" class="button" style="left: 130px; top: 425px; height: 50px;"></div>
       <div id="buttonR" class="button" style="right: 120px; top: 425px; height: 50px;"></div>
 
-      <div id="buttonV" class="joystick" style="right: 20px; top: 532px; width: 150px; height: 50px;">V</div>
-      <div id="buttonZ" class="joystick" style="right: 20px; top: 630px; width: 150px; height: 50px;">Z</div>
-      <div id="buttonC" class="joystick" style="right: 120px; top: 532px; width: 50px; height: 150px;">C</div>
-      <div id="buttonX" class="joystick" style="right: 20px; top: 532px; width: 50px; height: 150px;">X</div>
+      <div id="buttonV" class="joystick" style="right: 20px; top: 532px; width: 150px; height: 50px;">
+        <img src='images/buttonIconTriangle.svg' style='max-width: 50px; max-height: 50px;'>
+      </div>
+      <div id="buttonZ" class="joystick" style="right: 20px; top: 630px; width: 150px; height: 50px;">
+        <img src='images/buttonIconX.svg' style='max-width: 50px; max-height: 50px;'>
+
+      </div>
+      <div id="buttonC" class="joystick" style="right: 120px; top: 532px; width: 50px; height: 150px;">
+        <img src='images/buttonIconSquare.svg' style='max-width: 50px; max-height: 50px;'>
+
+      </div>
+      <div id="buttonX" class="joystick" style="right: 20px; top: 532px; width: 50px; height: 150px;">
+        <img src='images/buttonIconCircle.svg' style='max-width: 50px; max-height: 50px;'>
+
+      </div>
     </div>
 
     <canvas id="canvas" tabindex="-1" width="768" height="768" onclick="window.focus()"
@@ -467,27 +478,61 @@
         const gammaUpDown = event.gamma;
         const betaLeftRight = event.beta;
 
-        if (betaLeftRight > window.__deviceOrientation.right) {
+        // Define thresholds for slight and full turns
+        const slightTurnThreshold = 5; // Smaller value for slight turns
+        const fullTurnThreshold = 15;  // Larger value for full turns
+
+        // Log element - create if it doesn't exist
+        if (!document.getElementById('orientation-log')) {
+          const logElement = document.createElement('div');
+          logElement.id = 'orientation-log';
+          logElement.style.position = 'fixed';
+          logElement.style.bottom = '10px';
+          logElement.style.left = '10px';
+          logElement.style.backgroundColor = 'rgba(0,0,0,0.7)';
+          logElement.style.color = 'white';
+          logElement.style.padding = '5px';
+          logElement.style.borderRadius = '5px';
+          logElement.style.zIndex = '1000';
+          document.body.appendChild(logElement);
+        }
+
+        const logElement = document.getElementById('orientation-log');
+
+        // Detect turns and log their type
+        if (betaLeftRight > fullTurnThreshold) {
           handleButtonPressIn('ArrowRight');
-        } else if (betaLeftRight < window.__deviceOrientation.left) {
+          logElement.textContent = `Full RIGHT turn: ${betaLeftRight.toFixed(1)}°`;
+        } else if (betaLeftRight > slightTurnThreshold) {
+          handleButtonPressIn('ArrowRight');
+          logElement.textContent = `Slight RIGHT turn: ${betaLeftRight.toFixed(1)}°`;
+        } else if (betaLeftRight < -fullTurnThreshold) {
           handleButtonPressIn('ArrowLeft');
+          logElement.textContent = `Full LEFT turn: ${betaLeftRight.toFixed(1)}°`;
+        } else if (betaLeftRight < -slightTurnThreshold) {
+          handleButtonPressIn('ArrowLeft');
+          logElement.textContent = `Slight LEFT turn: ${betaLeftRight.toFixed(1)}°`;
         } else {
           handleButtonPressOut('ArrowRight');
           handleButtonPressOut('ArrowLeft');
+          document.getElementById('buttonX').style.background = `rgba(255,0,0,0.3)`;
+          document.getElementById('buttonC').style.background = `rgba(255,0,0,0.3)`;
+          logElement.textContent = `Neutral: ${betaLeftRight.toFixed(1)}°`;
 
           // Accelerate only in a straight line
           if (gammaUpDown > window.__deviceOrientation.up + 5) {
             handleButtonPressIn('Z');
-            document.getElementById('buttonZ').style.background = `rgba(0,0,255,0.3)`
+            document.getElementById('buttonZ').style.background = `rgba(0,0,255,0.3)`;
           } else if (gammaUpDown < window.__deviceOrientation.down - 5) {
             handleButtonPressIn('Z');
-            document.getElementById('buttonZ').style.background = `rgba(0,0,255,0.3)`
+            document.getElementById('buttonZ').style.background = `rgba(0,0,255,0.3)`;
           } else {
             handleButtonPressOut('Z');
-            document.getElementById('buttonZ').style.background = `rgba(255,0,0,0.3)`
+            document.getElementById('buttonZ').style.background = `rgba(255,0,0,0.3)`;
           }
         }
 
+        // Up/down controls remain the same
         if (gammaUpDown > window.__deviceOrientation.up) {
           handleButtonPressIn('ArrowUp');
         } else if (gammaUpDown < window.__deviceOrientation.down) {
