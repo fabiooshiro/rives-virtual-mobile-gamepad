@@ -12,7 +12,7 @@
         .button,
         .joystick {
             position: absolute;
-            background-color: rgba(255, 100, 100, 0.4);
+            /* background-color: rgba(255, 100, 100, 0.4); */
             z-index: 30;
             display: flex;
             justify-content: center;
@@ -57,26 +57,72 @@
         }
     </style>
 </head>
+<style>
+    .button,
+    .joystick {
+        opacity: 0.6;
+        transition: opacity 0.2s;
+    }
+
+    .button:hover,
+    .joystick:hover {
+        opacity: 1;
+    }
+</style>
 
 <body>
     <div style="position: absolute; right: 0; bottom: 0;">Free Doom</div>
     <div class="canvas-wrapper">
 
         <div id="gamepad" style="position: relative;">
-            <div id="joystickUp" class="joystick" style="left: 20px; top: 536px; width: 150px; height: 54px;"></div>
-            <div id="joystickDown" class="joystick" style="left: 20px; top: 630px; width: 150px; height: 54px;"></div>
-            <div id="joystickLeft" class="joystick" style="left: 20px; top: 536px; width: 54px; height: 150px;"></div>
-            <div id="joystickRight" class="joystick" style="left: 116px; top: 536px; width: 54px; height: 150px;"></div>
+            <div id="joystickUp" class="joystick"
+                style="left: 20px; top: 536px; width: 150px; height: 54px; display: flex; justify-content: center; align-items: center;">
+                <img src="icons/up.svg" style="max-width: 100%; max-height: 100%;" />
+            </div>
 
-            <div id="buttonS" class="button" style="left: 20px; top: 366px;"></div>
-            <div id="buttonA" class="button" style="left: 20px; top: 411px; width: 66px; height: 100px;"></div>
-            <div id="buttonD" class="button" style="right: 20px; top: 366px;"></div>
+            <div id="joystickDown" class="joystick"
+                style="left: 18px; top: 630px; width: 150px; height: 54px; display: flex; justify-content: center; align-items: center;">
+                <img src="icons/up.svg" style="max-width: 100%; max-height: 100%; transform: rotate(180deg);" />
+            </div>
 
-            <div id="buttonF" class="button" style="right: 20px; top: 411px; width: 66px; height: 100px;"></div>
+            <div id="joystickLeft" class="joystick"
+                style="left: 20px; top: 536px; width: 54px; height: 150px; display: flex; justify-content: center; align-items: center;">
+                <img src="icons/right.svg" style="max-width: 100%; max-height: 100%; transform: rotate(180deg);" />
+            </div>
+
+            <div id="joystickRight" class="joystick"
+                style="left: 116px; top: 538px; width: 54px; height: 150px; display: flex; justify-content: center; align-items: center;">
+                <img src="icons/right.svg" style="max-width: 100%; max-height: 100%;" />
+            </div>
+
+
+
+            <div id="buttonS" class="button" style="left: 20px; top: 366px;">
+                <img src="icons/l2.svg" style='max-width: 100%; max-height: 100%;' />
+
+            </div>
+            <div id="buttonA" class="button" style="left: 20px; top: 411px; width: 66px; height: 100px;">
+                <img src="icons/l1.svg" style='max-width: 100%; max-height: 100%;' />
+
+            </div>
+            <div id="buttonD" class="button" style="right: 20px; top: 366px;">
+                <img src="icons/r2.svg" style='max-width: 100%; max-height: 100%;' />
+
+            </div>
+
+            <div id="buttonF" class="button" style="right: 20px; top: 411px; width: 66px; height: 100px;">
+                <img src="icons/r1.svg" style='max-width: 100%; max-height: 100%;' />
+
+            </div>
 
             <div id="buttonW" class="button" style="left: 130px; top: 381px; height: 50px;"
-                onclick="window.location.href='doom.html'"></div>
-            <div id="buttonE" class="button" style="right: 120px; top: 381px; height: 50px;"></div>
+                onclick="window.location.href=`https://ipfs.io/ipfs/bafybeiab3lenboyilbcnfnxncswhzmhvrzwt325zv2x2ee6y6uvuxmqxsa/doom.html'`">
+                <img src="icons/select.svg" style='max-width: 100%; max-height: 100%;' />
+            </div>
+            <div id="buttonE" class="button" style="right: 120px; top: 381px; height: 50px;">
+                <img src="icons/start.svg" style='max-width: 100%; max-height: 100%;' />
+
+            </div>
 
             <div id="buttonQ" class="button" style="left: 130px; top: 425px; height: 50px;"></div>
             <div id="buttonR" class="button" style="right: 120px; top: 425px; height: 50px;"></div>
@@ -473,14 +519,14 @@
                 const startHold = () => {
                     runTimeout = setTimeout(() => {
                         handleButtonPressIn(keyToRun);
-                        document.getElementById(visualId).style.background = `rgba(0,0,255,0.3)`; // blue
+                        // document.getElementById(visualId).style.background = `rgba(0,0,255,0.3)`; // blue
                     }, 900);
                 };
 
                 const endHold = () => {
                     clearTimeout(runTimeout);
                     handleButtonPressOut(keyToRun);
-                    document.getElementById(visualId).style.background = `rgba(255,0,0,0.3)`; // red
+                    // document.getElementById(visualId).style.background = `rgba(255,0,0,0.3)`; // red
                 };
 
                 btn.addEventListener("mousedown", startHold);
@@ -501,12 +547,12 @@
 
                 const press = () => {
                     handleButtonPressIn(key);
-                    el.style.background = visualColor;
+                    // el.style.background = visualColor;
                 };
 
                 const release = () => {
                     handleButtonPressOut(key);
-                    el.style.background = 'rgba(255,0,0,0.3)';
+                    // el.style.background = 'rgba(255,0,0,0.3)';
                 };
 
                 el.addEventListener('mousedown', press);
@@ -520,8 +566,8 @@
             bindGamepadButton('buttonX', 'F'); // X = shoot
             bindGamepadButton('buttonV', 'A'); // V = strafe
 
-            bindGamepadButton('buttonA', 'S'); // F = prev weapon
-            bindGamepadButton('buttonS', 'D'); // D = next weapon
+            bindGamepadButton('buttonF', 'S'); // F = prev weapon
+            bindGamepadButton('buttonD', 'D'); // D = next weapon
         });
 
 
