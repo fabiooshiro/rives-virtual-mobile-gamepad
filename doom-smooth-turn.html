@@ -70,20 +70,25 @@
 
 <body>
   <div style="position: absolute; right: 0; bottom: 0;">Free Doom</div>
+  
   <div class="canvas-wrapper">
 
     <div id="gamepad" style="position: relative;">
+      <div id="buttonW" class="button" style="position: absolute; left: 20px; top: 20px; height: auto; width: auto;">
+        <img src="./icons/select.png" height="36" />
+      </div>
+      <div id="buttonE" class="button" onclick="openSettings();"
+        style="position: absolute; right: 20px; top: 20px; height: auto; width: auto;">
+        <img src="./icons/start.png" height="36" />
+      </div>
+
+      <div id="joystickLeft" class="joystick bottom" style="left: 20px; top: 536px; width: 54px; height: 150px;"></div>
+      <div id="joystickRight" class="joystick bottom" style="left: 116px; top: 536px; width: 54px; height: 150px;"></div>
+
       <div id="buttonS" class="button bottom trigger" style="left: 20px; top: 366px;">L1/S</div>
       <div id="buttonA" class="button bottom trigger" style="left: 20px; top: 411px; width: 66px; height: 100px;">L2/A</div>
       <div id="buttonD" class="button bottom trigger" style="right: 20px; top: 366px;">R1/D</div>
       <div id="buttonF" class="button bottom trigger" style="right: 20px; top: 411px; width: 66px; height: 100px;">R2/F</div>
-
-      <div id="buttonW" class="button" style="position: fixed; left: 20px; top: 20px; height: auto; width: auto;">
-        <img src="./icons/select.png" height="36" />
-      </div>
-      <div id="buttonE" class="button" onclick="window.ReactNativeWebView.postMessage('openSettings')" style="position: fixed; right: 20px; top: 20px; height: auto; width: auto;">
-        <img src="./icons/start.png" height="36" />
-      </div>
 
       <div id="buttonQ" class="button" style="left: 130px; top: 425px; height: 50px;">Q</div>
       <div id="buttonR" class="button" style="right: 120px; top: 425px; height: 50px;">R</div>
@@ -305,39 +310,8 @@
   </div>
   <script src="index.js"></script>
   <script async src="rivemu.js"></script>
+  <script src="commons.js"></script>
   <script>
-    
-    function resizeCanvas() {
-      const canvas = document.getElementById('canvas');
-      canvas.style.height = '100vh';
-      canvas.style.width = `${(canvas.width / canvas.height) * 100}vh`;
-      const canvasWidth = canvas.getBoundingClientRect().width;
-      const left = (window.innerWidth / 2) - (canvasWidth / 2);
-      // console.log(`canvas.width=${canvas.width}`);
-      // console.log(`canvas.height=${canvas.height}`);
-      // console.log(`canvas.left`, left);
-      canvas.style.position = 'absolute';
-      canvas.style.top = '0';
-      canvas.style.imageRendering = 'pixelated';
-      canvas.style.left = `${left}px`;
-      canvas.style.transformOrigin = 'top left';
-    }
-
-    setInterval(() => resizeCanvas(), 3000);
-
-    function moveGamepadToBottom() {
-      let maxH = 0;
-      document.querySelectorAll('.button, .joystick').forEach(el => {
-        const rect = el.getBoundingClientRect();
-        maxH = Math.max(rect.bottom, maxH)
-      });
-      const gamePadPaddingBottom = -20;
-      const diffH = window.innerHeight - maxH - gamePadPaddingBottom;
-      document.querySelectorAll('.button, .joystick').forEach(el => {
-        const rect = el.getBoundingClientRect();
-        el.style.top = `${rect.top + diffH}px`;
-      });
-    }
 
     function getGamepadButtons() {
       const gamepadButtons = [];
@@ -473,7 +447,7 @@
 
       let rightPressed = false;
 
-      let maxRight = window.__deviceOrientation.right * 2;
+      let maxRight = window.__deviceOrientation.right + 3;
 
       let betaRight = 0;
 
@@ -506,7 +480,7 @@
 
       let leftPressed = false;
 
-      let maxLeft = Math.abs(window.__deviceOrientation.left * 2);
+      let maxLeft = Math.abs(window.__deviceOrientation.left) + 3;
 
       let betaLeft = 0;
 
@@ -536,7 +510,7 @@
       }
 
       const handleOrientation = (event) => {
-        if (!window.__deviceOrientation || !window.__deviceOrientation.enabled) {
+        if (!window.__deviceOrientation) {
           return;
         }
         const gammaUpDown = event.gamma;

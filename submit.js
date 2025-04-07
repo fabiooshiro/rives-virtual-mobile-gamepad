@@ -122,6 +122,7 @@ async function sendGamePlay(contestInfo, gameplayResult) {
         in_card: '0x'
     };
     await submitGameplay(walletClient, inputData);
+    alert('Score registered successfully!');
 }
 
 function calculateScore(scoreFunction, outcard) {
