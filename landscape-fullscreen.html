@@ -7,16 +7,20 @@
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <title>RIVEMU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="index.css">
   <style>
     .button,
     .joystick {
       position: absolute;
-      background-color: rgba(255, 100, 100, 0.4);
+      background-color: rgba(255, 100, 100, 0.05);
       z-index: 30;
       display: flex;
       justify-content: center;
       align-items: center;
+      font-family: "Silkscreen", sans-serif;
     }
 
     .button {
@@ -67,22 +71,34 @@
       <div id="joystickLeft" class="joystick" style="left: 20px; top: 536px; width: 54px; height: 150px;"></div>
       <div id="joystickRight" class="joystick" style="left: 116px; top: 536px; width: 54px; height: 150px;"></div> -->
 
-      <div id="buttonS" class="button" style="left: 20px; top: 366px;"></div>
-      <div id="buttonA" class="button" style="left: 20px; top: 411px; width: 66px; height: 100px;"></div>
-      <div id="buttonD" class="button" style="right: 20px; top: 366px;"></div>
+      <div id="buttonS" class="button bottom" style="left: 20px; top: 366px;">L1/S</div>
+      <div id="buttonA" class="button bottom" style="left: 20px; top: 411px; width: 66px; height: 100px;">L2/A</div>
+      <div id="buttonD" class="button bottom" style="right: 20px; top: 366px;">R1/D</div>
 
-      <div id="buttonF" class="button" style="right: 20px; top: 411px; width: 66px; height: 100px;"></div>
+      <div id="buttonF" class="button bottom" style="right: 20px; top: 411px; width: 66px; height: 100px;">R2/F</div>
 
-      <div id="buttonW" class="button" style="left: 130px; top: 381px; height: 50px;"></div>
-      <div id="buttonE" class="button" style="right: 120px; top: 381px; height: 50px;"></div>
+      <div id="buttonW" class="button" style="position: fixed; left: 20px; top: 20px; height: auto; width: auto;">
+        <img src="./icons/select.png" height="36" />
+      </div>
+      <div id="buttonE" class="button" style="position: fixed; right: 20px; top: 20px; height: auto; width: auto;">
+        <img src="./icons/start.png" height="36" />
+      </div>
 
       <div id="buttonQ" class="button" style="left: 130px; top: 425px; height: 50px;"></div>
       <div id="buttonR" class="button" style="right: 120px; top: 425px; height: 50px;"></div>
 
-      <div id="buttonV" class="joystick" style="right: 20px; top: 532px; width: 150px; height: 50px;"></div>
-      <div id="buttonZ" class="joystick" style="right: 20px; top: 630px; width: 150px; height: 50px;"></div>
-      <div id="buttonC" class="joystick" style="right: 120px; top: 532px; width: 50px; height: 150px;"></div>
-      <div id="buttonX" class="joystick" style="right: 20px; top: 532px; width: 50px; height: 150px;"></div>
+      <div id="buttonV" class="joystick bottom" style="right: 20px; top: 532px; width: 150px; height: 50px;">
+        <img src="./icons/v.png" width="50" />
+      </div>
+      <div id="buttonZ" class="joystick bottom" style="right: 20px; top: 630px; width: 150px; height: 50px;">
+        <img src="./icons/z.png" width="50" />
+      </div>
+      <div id="buttonC" class="joystick bottom" style="right: 120px; top: 532px; width: 50px; height: 150px;">
+        <img src="./icons/c.png" width="50" />
+      </div>
+      <div id="buttonX" class="joystick bottom" style="right: 20px; top: 532px; width: 50px; height: 150px;">
+        <img src="./icons/x.png" width="50" />
+      </div>
     </div>
 
     <canvas id="canvas" tabindex="-1" width="768" height="768" onclick="window.focus()"
@@ -317,13 +333,13 @@
 
     function moveGamepadToBottom() {
       let maxH = 0;
-      document.querySelectorAll('.button, .joystick').forEach(el => {
+      document.querySelectorAll('.bottom').forEach(el => {
         const rect = el.getBoundingClientRect();
         maxH = Math.max(rect.bottom, maxH)
       });
       const gamePadPaddingBottom = -20;
       const diffH = window.innerHeight - maxH - gamePadPaddingBottom;
-      document.querySelectorAll('.button, .joystick').forEach(el => {
+      document.querySelectorAll('.bottom').forEach(el => {
         const rect = el.getBoundingClientRect();
         el.style.top = `${rect.top + diffH}px`;
       });
