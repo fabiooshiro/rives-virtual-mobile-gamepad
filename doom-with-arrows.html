@@ -116,7 +116,7 @@
             </div>
 
             <div id="buttonW" class="button" style="left: 130px; top: 381px; height: 50px;"
-                onclick="window.location.href=`https://ipfs.io/ipfs/bafybeiab3lenboyilbcnfnxncswhzmhvrzwt325zv2x2ee6y6uvuxmqxsa/doom.html'`">
+                onclick="openSettings();">
                 <img src="icons/select.svg" style='max-width: 100%; max-height: 100%;' />
             </div>
             <div id="buttonE" class="button" style="right: 120px; top: 381px; height: 50px;">
@@ -348,15 +348,9 @@
     </div>
     <script src="index.js"></script>
     <script async src="rivemu.js"></script>
+    <script src="commons.js"></script>
     <script>
-        (async () => {
-            let canvas = document.getElementById('canvas');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerWidth;
-            let loader = document.getElementById('canvas-load');
-            loader.style.height = window.innerWidth + 'px';
-            loader.style.width = window.innerWidth + 'px';
-        })();
+        
         function resizeCanvas() {
             const canvas = document.getElementById('canvas');
             canvas.style.height = '100vh';
