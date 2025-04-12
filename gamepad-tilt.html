@@ -297,7 +297,7 @@
       canvas.style.transformOrigin = 'top left';
       canvas.style.width = '100vw';
     }
-    
+
     function getGamepadButtons() {
       const gamepadButtons = [];
       document.querySelectorAll('.button, .joystick').forEach(el => {
@@ -313,7 +313,7 @@
 
     document.addEventListener("DOMContentLoaded", function () {
       resizeCanvas();
-      moveGamepadToBottom();
+      moveGamepadToBottom({ paddingBottom: 40 });
       const gamepadButtons = getGamepadButtons();
 
       const pressed = {};

@@ -65,7 +65,8 @@
       <div id="joystickUp" class="joystick bottom" style="left: 20px; top: 536px; width: 150px; height: 54px;"></div>
       <div id="joystickDown" class="joystick bottom" style="left: 20px; top: 630px; width: 150px; height: 54px;"></div>
       <div id="joystickLeft" class="joystick bottom" style="left: 20px; top: 536px; width: 54px; height: 150px;"></div>
-      <div id="joystickRight" class="joystick bottom" style="left: 116px; top: 536px; width: 54px; height: 150px;"></div>
+      <div id="joystickRight" class="joystick bottom" style="left: 116px; top: 536px; width: 54px; height: 150px;">
+      </div>
 
       <div id="buttonS" class="button bottom" style="left: 20px; top: 366px;"></div>
       <div id="buttonA" class="button bottom" style="left: 20px; top: 411px;"></div>
@@ -73,11 +74,8 @@
       <div id="buttonF" class="button bottom" style="left: 320px; top: 411px;"></div>
 
       <div id="buttonW" class="button bottom" style="left: 130px; top: 381px; height: 50px;"></div>
-      <div id="buttonE"
-        class="button bottom"
-        style="left: 220px; top: 381px; height: 50px;"
-        onclick="openSettings();"
-      ></div>
+      <div id="buttonE" class="button bottom" style="left: 220px; top: 381px; height: 50px;" onclick="openSettings();">
+      </div>
 
       <div id="buttonQ" class="button bottom" style="left: 130px; top: 425px; height: 50px;"></div>
       <div id="buttonR" class="button bottom" style="left: 220px; top: 425px; height: 50px;"></div>
@@ -320,7 +318,7 @@
 
     document.addEventListener("DOMContentLoaded", function () {
       resizeCanvas();
-      moveGamepadToBottom();
+      moveGamepadToBottom({ paddingBottom: 40 });
       const gamepadButtons = getGamepadButtons();
 
       const pressed = {};

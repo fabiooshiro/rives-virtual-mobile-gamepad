@@ -1,10 +1,10 @@
-function moveGamepadToBottom() {
+function moveGamepadToBottom(options) {
     let maxH = 0;
     document.querySelectorAll('.bottom').forEach(el => {
         const rect = el.getBoundingClientRect();
         maxH = Math.max(rect.bottom, maxH)
     });
-    const gamePadPaddingBottom = -20;
+    const gamePadPaddingBottom = options.paddingBottom ?? -20;
     const diffH = window.innerHeight - maxH - gamePadPaddingBottom;
     document.querySelectorAll('.bottom').forEach(el => {
         const rect = el.getBoundingClientRect();
