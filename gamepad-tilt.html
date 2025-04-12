@@ -62,10 +62,6 @@
   <div class="canvas-wrapper">
 
     <div id="gamepad" style="position: relative;">
-      <div id="joystickUp" class="joystick bottom" style="left: 20px; top: 536px; width: 150px; height: 54px;"></div>
-      <div id="joystickDown" class="joystick bottom" style="left: 20px; top: 630px; width: 150px; height: 54px;"></div>
-      <div id="joystickLeft" class="joystick bottom" style="left: 20px; top: 536px; width: 54px; height: 150px;"></div>
-      <div id="joystickRight" class="joystick bottom" style="left: 116px; top: 536px; width: 54px; height: 150px;"></div>
 
       <div id="buttonS" class="button bottom" style="left: 20px; top: 366px;"></div>
       <div id="buttonA" class="button bottom" style="left: 20px; top: 411px;"></div>
@@ -287,47 +283,8 @@
   </div>
   <script src="index.js"></script>
   <script async src="rivemu.js"></script>
+  <script src="commons.js"></script>
   <script>
-    (async () => {
-      let canvas = document.getElementById('canvas');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerWidth;
-      let loader = document.getElementById('canvas-load');
-      loader.style.height = window.innerWidth + 'px';
-      loader.style.width = window.innerWidth + 'px';
-      await rivemuUploadCartridge(window.cartridge || 'https://raw.githubusercontent.com/edubart/cartridges/main/gamepad.sqfs');
-      resizeCanvas()
-    })();
-  </script>
-  <script>
-    function resizeCanvas() {
-      const canvas = document.getElementById('canvas');
-      // const scaleFactor = Math.min(window.innerWidth / canvas.width, window.innerHeight / canvas.height);
-      console.log(`canvas.width=${canvas.width}`)
-      console.log(`canvas.height=${canvas.height}`)
-      canvas.style.position = 'absolute';
-      canvas.style.top = '0';
-      canvas.style.imageRendering = 'pixelated';
-      canvas.style.left = '0';
-      // canvas.style.transform = `scale(${scaleFactor})`;
-      canvas.style.transformOrigin = 'top left';
-      canvas.style.width = '100vw';
-      // canvas.style.height = '100vh';
-    }
-
-    function moveGamepadToBottom() {
-      let maxH = 0;
-      document.querySelectorAll('.button, .joystick').forEach(el => {
-        const rect = el.getBoundingClientRect();
-        maxH = Math.max(rect.bottom, maxH)
-      });
-      const gamePadPaddingBottom = 20;
-      const diffH = window.innerHeight - maxH - gamePadPaddingBottom;
-      document.querySelectorAll('.button, .joystick').forEach(el => {
-        const rect = el.getBoundingClientRect();
-        el.style.top = `${rect.top + diffH}px`;
-      });
-    }
 
     function getGamepadButtons() {
       const gamepadButtons = [];
@@ -419,10 +376,6 @@
           W: false,
           Q: false,
           R: false,
-          ArrowRight: false,
-          ArrowLeft: false,
-          ArrowDown: false,
-          ArrowUp: false
         };
 
         for (let i = 0; i < touches.length; i++) {
@@ -460,6 +413,55 @@
         endTouches(touches, true);
       });
 
+      const handleOrientation = (event) => {
+        if (!window.__deviceOrientation || !window.__deviceOrientation.enabled) {
+          return;
+        }
+        const absolute = event.absolute;
+        const alpha = event.alpha;
+        const beta = event.beta;
+        const gamma = event.gamma;
+
+        if (gamma > window.__deviceOrientation.right) {
+          handleButtonPressIn('ArrowRight');
+        } else if (gamma < window.__deviceOrientation.left) {
+          handleButtonPressIn('ArrowLeft');
+        } else {
+          handleButtonPressOut('ArrowRight');
+          handleButtonPressOut('ArrowLeft');
+        }
+
+        if (beta < window.__deviceOrientation.up) {
+          handleButtonPressIn('ArrowUp');
+        } else if (beta > window.__deviceOrientation.down) {
+          handleButtonPressIn('ArrowDown');
+        } else {
+          handleButtonPressOut('ArrowUp');
+          handleButtonPressOut('ArrowDown');
+        }
+      };
+
+      let clickCountButtonQ = 0;
+
+      document.getElementById('buttonQ').addEventListener("click", () => {
+        clickCountButtonQ++;
+        if (clickCountButtonQ > 3) {
+          if (typeof DeviceOrientationEvent.requestPermission === "function") {
+            DeviceOrientationEvent.requestPermission()
+              .then((permissionState) => {
+                if (permissionState === "granted") {
+                  window.addEventListener("deviceorientation", handleOrientation);
+                } else {
+                  console.error("Permissão negada");
+                }
+              })
+              .catch(console.error);
+          }
+        }
+        setTimeout(() => clickCountButtonQ = 0, 1000);
+      });
+
+      window.addEventListener("deviceorientation", handleOrientation);
     });
   </script>
   <!-- <script>
