@@ -69,7 +69,8 @@
       <div id="buttonF" class="button bottom" style="left: 320px; top: 411px;"></div>
 
       <div id="buttonW" class="button bottom" style="left: 130px; top: 381px; height: 50px;"></div>
-      <div id="buttonE" class="button bottom" style="left: 220px; top: 381px; height: 50px;"></div>
+      <div id="buttonE" class="button bottom" style="left: 220px; top: 381px; height: 50px;" onclick="openSettings();">
+      </div>
 
       <div id="buttonQ" class="button bottom" style="left: 130px; top: 425px; height: 50px;"></div>
       <div id="buttonR" class="button bottom" style="left: 220px; top: 425px; height: 50px;"></div>
@@ -285,7 +286,18 @@
   <script async src="rivemu.js"></script>
   <script src="commons.js"></script>
   <script>
-
+    function resizeCanvas() {
+      const canvas = document.getElementById('canvas');
+      console.log(`canvas.width=${canvas.width}`)
+      console.log(`canvas.height=${canvas.height}`)
+      canvas.style.position = 'absolute';
+      canvas.style.top = '0';
+      canvas.style.imageRendering = 'pixelated';
+      canvas.style.left = '0';
+      canvas.style.transformOrigin = 'top left';
+      canvas.style.width = '100vw';
+    }
+    
     function getGamepadButtons() {
       const gamepadButtons = [];
       document.querySelectorAll('.button, .joystick').forEach(el => {
