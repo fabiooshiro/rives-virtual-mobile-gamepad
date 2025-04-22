@@ -110,7 +110,7 @@ function connectPublicClient() {
 async function sendGamePlay(contestInfo, gameplayResult) {
     const walletClient = await connectWalletClient();
     const score = calculateScore(contestInfo.score_function, gameplayResult.outcard);
-    if (!confirm(`Send score ${score}?`)) {
+    if (score == 0 || !confirm(`Send score ${score}?`)) {
         return
     }
     const inputData = {
