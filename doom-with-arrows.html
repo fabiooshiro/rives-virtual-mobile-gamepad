@@ -454,16 +454,29 @@
             };
 
             const endTouches = (touches) => {
-                const keysToRelease = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
-                for (const key of keysToRelease) {
-                    handleButtonPressOut(key);
+                const pressed = {};
+                for (let i = 0; i < touches.length; i++) {
+                    touch = touches[i];
+                    const { clientX: x, clientY: y } = touch;
+                    for (let btn of gamepadButtons) {
+                        if (x > btn.rect.left && x < btn.rect.right && y > btn.rect.top && y < btn.rect.bottom) {
+                            pressed[btn.key] = false;
+                        }
+                    }
                 }
-
                 for (const key in pressed) {
                     if (pressed[key]) handleButtonPressIn(key);
                     else handleButtonPressOut(key);
                 }
             };
+
+            // const endTouches = (touches) => {
+            //     const keysToRelease = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+            //     for (const key of keysToRelease) {
+            //         handleButtonPressOut(key);
+            //     }
+            // }
+
 
             const updateTouches = (touches, ending) => {
                 const pressed = {
