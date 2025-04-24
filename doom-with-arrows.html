@@ -75,73 +75,73 @@
     <div class="canvas-wrapper">
 
         <div id="gamepad" style="position: relative;">
-            <div id="joystickUp" class="joystick bottom"
+            <div id="joystickUp" class="joystick"
                 style="left: 20px; top: 536px; width: 150px; height: 54px; display: flex; justify-content: center; align-items: center;">
                 <img src="icons/up.svg" style="max-width: 100%; max-height: 100%;" />
             </div>
 
-            <div id="joystickDown" class="joystick bottom"
+            <div id="joystickDown" class="joystick"
                 style="left: 18px; top: 630px; width: 150px; height: 54px; display: flex; justify-content: center; align-items: center;">
                 <img src="icons/up.svg" style="max-width: 100%; max-height: 100%; transform: rotate(180deg);" />
             </div>
 
-            <div id="joystickLeft" class="joystick bottom"
+            <div id="joystickLeft" class="joystick"
                 style="left: 20px; top: 536px; width: 54px; height: 150px; display: flex; justify-content: center; align-items: center;">
                 <img src="icons/right.svg" style="max-width: 100%; max-height: 100%; transform: rotate(180deg);" />
             </div>
 
-            <div id="joystickRight" class="joystick bottom"
+            <div id="joystickRight" class="joystick"
                 style="left: 116px; top: 538px; width: 54px; height: 150px; display: flex; justify-content: center; align-items: center;">
                 <img src="icons/right.svg" style="max-width: 100%; max-height: 100%;" />
             </div>
 
 
 
-            <div id="buttonS" class="button bottom" style="left: 20px; top: 366px;">
+            <div id="buttonS" class="button" style="left: 20px; top: 366px;">
                 <img src="icons/l2.svg" style='max-width: 100%; max-height: 100%;' />
 
             </div>
-            <div id="buttonA" class="button bottom" style="left: 20px; top: 411px; width: 66px; height: 100px;">
+            <div id="buttonA" class="button" style="left: 20px; top: 411px; width: 66px; height: 100px;">
                 <img src="icons/l1.svg" style='max-width: 100%; max-height: 100%;' />
 
             </div>
-            <div id="buttonD" class="button bottom" style="right: 20px; top: 366px;">
+            <div id="buttonD" class="button" style="right: 20px; top: 366px;">
                 <img src="icons/r2.svg" style='max-width: 100%; max-height: 100%;' />
 
             </div>
 
-            <div id="buttonF" class="button bottom" style="right: 20px; top: 411px; width: 66px; height: 100px;">
+            <div id="buttonF" class="button" style="right: 20px; top: 411px; width: 66px; height: 100px;">
                 <img src="icons/r1.svg" style='max-width: 100%; max-height: 100%;' />
 
             </div>
 
-            <div id="buttonW" class="button bottom" style="left: 130px; top: 381px; height: 50px;">
+            <div id="buttonW" class="button" style="left: 130px; top: 381px; height: 50px;"
+                onclick="window.location.href=`https://ipfs.io/ipfs/bafybeiab3lenboyilbcnfnxncswhzmhvrzwt325zv2x2ee6y6uvuxmqxsa/doom.html'`">
                 <img src="icons/select.svg" style='max-width: 100%; max-height: 100%;' />
             </div>
-            <div id="buttonE"
-                class="button bottom"
-                style="right: 120px; top: 381px; height: 50px;"
-                onclick="openSettings();">
+            <div id="buttonE" class="button" style="right: 120px; top: 381px; height: 50px;">
                 <img src="icons/start.svg" style='max-width: 100%; max-height: 100%;' />
+
             </div>
 
             <div id="buttonQ" class="button" style="left: 130px; top: 425px; height: 50px;"></div>
             <div id="buttonR" class="button" style="right: 120px; top: 425px; height: 50px;"></div>
 
-            <div id="buttonV" class="joystick bottom" style="right: 20px; top: 532px; width: 150px; height: 50px;">
+            <div id="buttonV" class="joystick" style="right: 20px; top: 532px; width: 150px; height: 50px;">
                 <img src="icons/triangle.svg" style='max-height: 50%; max-height: 100%;' />
 
             </div>
-            <div id="buttonZ" class="joystick bottom" style="right: 20px; top: 630px; width: 150px; height: 50px;">
+            <div id="buttonZ" class="joystick" style="right: 20px; top: 630px; width: 150px; height: 50px;">
                 <img src="icons/cross.svg" style='max-height: 50%; max-height: 100%;' />
 
             </div>
-            <div id="buttonC" class="joystick bottom" style="right: 120px; top: 532px; width: 50px; height: 150px;">
+            <div id="buttonC" class="joystick" style="right: 120px; top: 532px; width: 50px; height: 150px;">
                 <img src="icons/square.svg" style='max-height: 70%; max-height: 35%;' />
 
             </div>
-            <div id="buttonX" class="joystick bottom" style="right: 20px; top: 532px; width: 50px; height: 150px;">
+            <div id="buttonX" class="joystick" style="right: 20px; top: 532px; width: 50px; height: 150px;">
                 <img src="icons/circle.svg" style='max-height: 70%; max-height: 35%;' />
+
             </div>
         </div>
 
@@ -348,8 +348,47 @@
     </div>
     <script src="index.js"></script>
     <script async src="rivemu.js"></script>
-    <script src="commons.js"></script>
     <script>
+        (async () => {
+            let canvas = document.getElementById('canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerWidth;
+            let loader = document.getElementById('canvas-load');
+            loader.style.height = window.innerWidth + 'px';
+            loader.style.width = window.innerWidth + 'px';
+        })();
+        function resizeCanvas() {
+            const canvas = document.getElementById('canvas');
+            canvas.style.height = '100vh';
+            canvas.style.width = `${(canvas.width / canvas.height) * 100}vh`;
+            const canvasWidth = canvas.getBoundingClientRect().width;
+            const left = (window.innerWidth / 2) - (canvasWidth / 2);
+            // console.log(`canvas.width=${canvas.width}`);
+            // console.log(`canvas.height=${canvas.height}`);
+            // console.log(`canvas.left`, left);
+            canvas.style.position = 'absolute';
+            canvas.style.top = '0';
+            canvas.style.imageRendering = 'pixelated';
+            canvas.style.left = `${left}px`;
+            canvas.style.transformOrigin = 'top left';
+        }
+
+        setInterval(() => resizeCanvas(), 3000);
+
+        function moveGamepadToBottom() {
+            let maxH = 0;
+            document.querySelectorAll('.button, .joystick').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                maxH = Math.max(rect.bottom, maxH)
+            });
+            const gamePadPaddingBottom = -20;
+            const diffH = window.innerHeight - maxH - gamePadPaddingBottom;
+            document.querySelectorAll('.button, .joystick').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                el.style.top = `${rect.top + diffH}px`;
+            });
+        }
+
 
         function getGamepadButtons() {
             const allowedAutoKeys = ['W', 'X', 'E', 'Q', 'R', 'Z', 'C', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
@@ -413,16 +452,11 @@
             };
 
             const endTouches = (touches) => {
-                const pressed = {};
-                for (let i = 0; i < touches.length; i++) {
-                    touch = touches[i];
-                    const { clientX: x, clientY: y } = touch;
-                    for (let btn of gamepadButtons) {
-                        if (x > btn.rect.left && x < btn.rect.right && y > btn.rect.top && y < btn.rect.bottom) {
-                            pressed[btn.key] = false;
-                        }
-                    }
+                const keysToRelease = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+                for (const key of keysToRelease) {
+                    handleButtonPressOut(key);
                 }
+
                 for (const key in pressed) {
                     if (pressed[key]) handleButtonPressIn(key);
                     else handleButtonPressOut(key);
@@ -459,6 +493,8 @@
                 }
             };
 
+
+
             document.addEventListener('touchstart', (e) => {
                 const touches = e.touches;
                 updateTouches(touches);
@@ -469,62 +505,55 @@
                 updateTouches(touches);
             }, false);
 
-            document.addEventListener('touchend', () => {
+            document.addEventListener('touchend', (event) => {
                 const touches = event.changedTouches;
                 endTouches(touches, true);
             });
 
-            function enableHoldToRun(buttonId, keyToRun, visualId) {
-                let runTimeout;
-                const btn = document.getElementById(buttonId);
-
-                const startHold = () => {
-                    runTimeout = setTimeout(() => {
-                        handleButtonPressIn(keyToRun);
-                        // document.getElementById(visualId).style.background = `rgba(0,0,255,0.3)`; // blue
-                    }, 900);
-                };
-
-                const endHold = () => {
-                    clearTimeout(runTimeout);
-                    handleButtonPressOut(keyToRun);
-                    // document.getElementById(visualId).style.background = `rgba(255,0,0,0.3)`; // red
-                };
-
-                btn.addEventListener("mousedown", startHold);
-                btn.addEventListener("touchstart", startHold);
-                btn.addEventListener("mouseup", endHold);
-                btn.addEventListener("mouseleave", endHold);
-                btn.addEventListener("touchend", endHold);
-            }
-
-            enableHoldToRun('joystickUp', 'Z', 'buttonZ');
-            enableHoldToRun('joystickDown', 'Z', 'buttonZ');
-            enableHoldToRun('joystickLeft', 'Z', 'buttonZ');
-            enableHoldToRun('joystickRight', 'Z', 'buttonZ');
 
             function bindGamepadButton(buttonId, keyCode, visualColor = 'rgba(0,0,255,0.3)') {
                 const el = document.getElementById(buttonId);
                 const key = keyCode;
 
-                const press = () => {
+                const press = (e) => {
+                    e.preventDefault();
                     handleButtonPressIn(key);
-                    // el.style.background = visualColor;
                 };
 
-                const release = () => {
+                const release = (e) => {
+                    e.preventDefault();
                     handleButtonPressOut(key);
-                    // el.style.background = 'rgba(255,0,0,0.3)';
                 };
 
-                el.addEventListener('mousedown', press);
-                el.addEventListener('touchstart', press);
-                el.addEventListener('mouseup', release);
-                el.addEventListener('mouseleave', release);
+                el.addEventListener('joystickDown', press);
+                el.addEventListener('joystickUp', release);
                 el.addEventListener('touchend', release);
+
+                el.addEventListener('touchstart', press, { passive: false });
+                el.addEventListener('touchend', release, { passive: false });
+                el.addEventListener('touchcancel', release, { passive: false });
+
+                document.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    updateTouches(e.touches);
+                }, { passive: false });
+
+                document.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                    updateTouches(e.touches);
+                }, { passive: false });
+
+                document.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    endTouches(e.changedTouches);
+                }, { passive: false });
+
+                document.addEventListener('touchcancel', (e) => {
+                    endTouches(e.changedTouches);
+                });
+
             }
 
-            // Remapped button bindings
             bindGamepadButton('buttonX', 'F'); // X = shoot
             bindGamepadButton('buttonV', 'A'); // V = strafe
 
