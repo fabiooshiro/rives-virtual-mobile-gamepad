@@ -8,8 +8,8 @@ const envClient = {
     NETWORK_CHAIN_ID: "0x14a34", // "Base Sepolia"
     // NETWORK_CHAIN_ID: "0xAA36A7",
     APP_ADDR: "0xECB28678045a94F8b96EdE1c8203aDEa81F8AAe3", // Cartesi dapp, like echo-app
-    // WORLD_ADDR: "0x04969e1d36d43515cc6493a286021b44b0fce6f2",
-    WORLD_ADDR: "0x872932915526c7bB835ed986784f4F115C903e8c", // InputBox
+    WORLD_ADDR: "0x04969e1d36d43515cc6493a286021b44b0fce6f2",
+    // WORLD_ADDR: "0x872932915526c7bB835ed986784f4F115C903e8c", // InputBox
 };
 
 const contestInfo = {
