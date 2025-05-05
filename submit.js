@@ -190,3 +190,20 @@ async function connectWalletClient() {
     // Return the wallet client
     return walletClient;
 }
+
+async function getEntropy() {
+    const walletClient = await connectWalletClient();
+    const [address] = await walletClient.requestAddresses();
+    const entropy = await generateEntropy(address, contestInfo.id);
+    return entropy;
+}
+
+async function generateEntropy(userAddress, ruleId) {
+    if (userAddress.length != 42 || !isHex(userAddress) || ruleId.length != 40) {
+        return '';
+    }
+
+    return sha256(`${userAddress}${ruleId}`).slice(2);
+}
+
+window.getEntropy = getEntropy
