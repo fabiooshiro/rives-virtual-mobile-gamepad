@@ -21,7 +21,6 @@
                 height: 54px;
             }
             
-            /* TODO: TEST LATER */
             .button:active,
             .joystick:active {
                 opacity: 0.5;
@@ -53,22 +52,23 @@
             }
 
             #gamepad {
+                width: 100%;
+                height: 100vh;
                 display: block;
                 margin: 0 auto;
-                max-width: 768px;
-                max-height: 768px;
                 background-color: transparent;
                 image-rendering: pixelated;
                 outline: none;
                 position: relative;
+                overflow: hidden;
             }
 
             #directionalPad {
-                width: 150px;
-                height: 150px;
+                width: 165px;
+                height: 165px;
                 position: absolute;
                 left: 20px;
-                top: 256px;
+                top: 211px; 
                 z-index: 30;
                 background-image: url('icons/directional-bg.png');
                 background-size: cover;
@@ -77,11 +77,11 @@
             }
 
             #controlPad {
-                width: 154px;
-                height: 150px;
+                width: 169px;
+                height: 165px;
                 position: absolute;
                 right: 20px;
-                top: 256px;
+                top: 211px;
                 z-index: 30;
                 background-image: url('icons/control-bg.png');
                 background-size: cover;
@@ -94,7 +94,7 @@
                 width: 100%;
                 height: 200px;
                 position: absolute;
-                top: 50px;
+                top: 20px;
                 z-index: 30;
             }
 
@@ -121,69 +121,97 @@
                     <div
                         id="joystickUp"
                         class="joystick padButton"
-                        style="top: 0; width: 100%; height: 45px;"
+                        style="top: 12px; left: 50%; transform: translateX(-50%); width: fit-content; height: 58px;"
                     >
-                        <img src="icons/up.svg" style="max-width: 100%; max-height: 100%" />
+                        <img src="icons/up.png" style="max-width: 100%; max-height: 100%" />
+                    </div>
+
+                    <div
+                        id="joystickUp"
+                        class="joystick padButton"
+                        style="top: 12px; left: 50%; transform: translateX(-50%); width: 85%; height: 25px;"
+                    ></div>
+
+                    <div
+                        id="joystickDown"
+                        class="joystick padButton"
+                        style="bottom: 12px; left: 50%; transform: translateX(-50%); width: fit-content; height: 58px;"
+                    >
+                        <img src="icons/down.png" style="max-width: 100%; max-height: 100%" />
                     </div>
 
                     <div
                         id="joystickDown"
                         class="joystick padButton"
-                        style="bottom: 0; width: 100%; height: 45px;"
+                        style="bottom: 12px; left: 50%; transform: translateX(-50%); width: 85%; height: 25px;"
+                    ></div>
+
+                    <div
+                        id="joystickLeft"
+                        class="joystick padButton"
+                        style="left: 12px; top: 50%; transform: translateY(-50%); width: 58px; height: fit-content;"
                     >
-                        <img src="icons/up.svg" style="max-width: 100%; max-height: 100%; transform: rotate(180deg)" />
+                        <img src="icons/left.png" style="max-width: 100%; max-height: 100%" />
                     </div>
 
                     <div
                         id="joystickLeft"
                         class="joystick padButton"
-                        style="left: 0; width: 45px; height: 100%;"
+                        style="left: 12px; top: 50%; transform: translateY(-50%); width: 25px; height: 85%;"
+                    ></div>
+
+                    <div
+                        id="joystickRight"
+                        class="joystick padButton"
+                        style="right: 12px; top: 50%; transform: translateY(-50%); width: 58px; height: fit-content;"
                     >
-                        <img src="icons/right.svg" style="max-width: 100%; max-height: 100%; transform: rotate(180deg)" />
+                        <img src="icons/right.png" style="max-width: 100%; max-height: 100%" />
                     </div>
 
                     <div
                         id="joystickRight"
                         class="joystick padButton"
-                        style="right: 0; width: 45px; height: 100%;"
-                    >
-                        <img src="icons/right.svg" style="max-width: 100%; max-height: 100%" />
-                    </div>
+                        style="right: 12px; top: 50%; transform: translateY(-50%); width: 25px; height: 85%;"
+                    ></div>
                 </div>
 
                 <div id="additionalButtons">
-                    <div id="buttonW" class="button" style="left: 30px; height: 50px">
+                    <div id="buttonW" class="button" style="left: 50px; height: 50px">
                         <img src="icons/menuButton.png" style="max-width: 100%; max-height: 100%" />
                     </div>
-                    <div id="buttonE" class="button" style="right: 30px; height: 50px" onclick="openSettings();">
+                    <div id="buttonE" class="button" style="right: 50px; height: 50px" onclick="openSettings();">
                         <img src="icons/startButton.png" style="max-width: 100%; max-height: 100%" />
                     </div>
-                    <div id="buttonS" class="button" style="left: -18px; top: 50px">
+                    <div id="buttonS" class="button" style="left: 0px; top: 50px">
                         <img src="icons/l2Button.png" style="height: 50px"/>
                     </div>
-                    <div id="buttonA" class="button" style="left: -8px; top: 100px;">
+                    <div id="buttonA" class="button" style="left: 10px; top: 100px;">
                         <img src="icons/l1Button.png" style="height: 50px" />
                     </div>
-                    <div id="buttonD" class="button" style="right: -18px; top: 50px">
+                    <div id="buttonD" class="button" style="right: 0px; top: 50px">
                         <img src="icons/r2Button.png" style="height: 50px" />
                     </div>
-                    <div id="buttonF" class="button" style="right: -8px; top: 100px;">
+                    <div id="buttonF" class="button" style="right: 10px; top: 100px;">
                         <img src="icons/r1Button.png" style="height: 50px" />
                     </div>
                 </div>
 
                 <div id="controlPad">
-                    <div id="buttonV" class="joystick padButton" style="top: 0; width: 100%; height: 45px; padding-top: 7px;">
-                        <img src="icons/control-button.png" style="width: 45px" />
+                    <div id="buttonV" class="joystick padButton" 
+                        style="top: 3px; left: 51%; transform: translateX(-50%); width: 62px; height: 62px;">
+                        <img src="icons/control-button.png" style="width: 55px" />
                     </div>
-                    <div id="buttonZ" class="joystick padButton" style="bottom: 0; width: 100%; height: 45px; padding-bottom: 5px;">
-                        <img src="icons/control-button.png" style="width: 45px" />
+                    <div id="buttonZ" class="joystick padButton" 
+                        style="bottom: 0px; left: 51%; transform: translateX(-50%); width: 62px; height: 62px;">
+                        <img src="icons/control-button.png" style="width: 55px" />
                     </div>
-                    <div id="buttonC" class="joystick padButton" style="left: 0; width: 45px; height: 100%; padding-left: 9px;">
-                        <img src="icons/control-button.png" style="width: 45px" />
+                    <div id="buttonC" class="joystick padButton" 
+                        style="left: 7px; top: 50%; transform: translateY(-50%); width: 62px; height: 62px;">
+                        <img src="icons/control-button.png" style="width: 55px" />
                     </div>
-                    <div id="buttonX" class="joystick padButton" style="right: 0; width: 45px; height: 100%; padding-right: 5px;">
-                        <img src="icons/control-button.png" style="width: 45px" />
+                    <div id="buttonX" class="joystick padButton" 
+                        style="right: 0px; top: 50%; transform: translateY(-50%); width: 62px; height: 62px;">
+                        <img src="icons/control-button.png" style="width: 55px" />
                     </div>
                 </div>
             </div>
@@ -780,4 +808,3 @@
         <script type="module" src="./submit.js"></script>
     </body>
 </html>
-``` 
