@@ -10,6 +10,7 @@ import {
     parseAbi,
     parseAbiParameters,
     publicActions,
+    sha256,
     toFunctionSelector,
     toHex,
 } from 'https://esm.sh/viem@2.23.2';
