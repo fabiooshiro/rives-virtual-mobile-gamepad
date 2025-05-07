@@ -318,12 +318,14 @@ async function rivemuUpload(cartridgeUrl, incardUrl, tapeUrl, autoPlay, argsPara
 }
 
 async function rivemuUploadCartridge(url) {
+  const entropy = await getEntropy()
   hideElem(canvasDropElem);
   await rivemuStop();
   resetCanvasSize();
   statusElem.textContent = "Downloading cartridge...";
   let file = url ? await downloadFile(url) : await uploadFileDialog(".sqfs");
-  await rivemuRecord(file);
+  console.log({entropy})
+  await rivemuRecord(file, null, entropy);
 }
 
 function rivemuDownloadCartridge() {
